@@ -1,9 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { ProductList } from "./components/ProductList";
 
 ReactDOM.render(
     <div>
-        <h1>Hello, World</h1>
+        <ProductList />
     </div>,
   document.getElementById("root"),
 );

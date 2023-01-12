@@ -1,0 +1,290 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {
+            "email": "jindra12.underdark@gmail.com",
+            "name": "Jan Jindráček",
+            "url": "https://www.linkedin.com/in/jan-jindr%C3%A1%C4%8Dek-0617b9224"
+        },
+        "description": "Conrad swagger shop test",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "termsOfService": "https://opensource.org/licenses/MIT",
+        "title": "Conrads e-shop swagger",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/products": {
+            "get": {
+                "operationId": "getProducts",
+                "description": "Lists all products",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "type": "string",
+                        "enum": ["asc", "desc"]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all products",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{productId}": {
+            "get": {
+                "operationId": "getProduct",
+                "description": "Get single product",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of all products",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/categories": {
+            "get": {
+                "operationId": "getCategories",
+                "description": "Get all categories of products",
+                "responses": {
+                    "200": {
+                        "description": "List of all categories",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/categories/{category}": {
+            "get": {
+                "operationId": "getProductsInCategory",
+                "description": "Get products in a single category",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List all products in this category",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/carts/user/{userId}": {
+            "get": {
+                "operationId": "getProductsInCart",
+                "description": "Get all products in user cart",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All products in users cart",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CartItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/carts": {
+            "post": {
+                "operationId": "createCart",
+                "description": "Create a new cart for user",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "required": true,
+                        "in": "body",
+                        "description": "Description of what is added to whose cart",
+                        "schema": {
+                            "$ref": "#/definitions/AddItem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully added a product to users cart",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    }
+                }
+            }
+        },
+        "/carts/{cartId}": {
+            "put": {
+                "operationId": "updateCart",
+                "description": "Update a cart",
+                "parameters": [
+                    {
+                        "name": "cartId",
+                        "required": true,
+                        "in": "path",
+                        "description": "Id of created cart",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "required": true,
+                        "in": "body",
+                        "description": "Contents of cart update",
+                        "schema": {
+                            "$ref": "#/definitions/AddItem"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated cart Id",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Cart": {
+            "type": "object",
+            "required": ["id"],
+            "properties": {
+                "id": {
+                    "description": "Id of the cart",
+                    "type": "integer"
+                }
+            }
+        },
+        "AddItem": {
+            "type": "object",
+            "required": ["userId", "date", "products"],
+            "properties": {
+                "userId": {
+                    "type": "integer",
+                    "description": "User ID of the cart"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CartItem"
+                    }
+                }
+            }
+        },
+        "CartItem": {
+            "type": "object",
+            "required": ["productId", "quantity"],
+            "properties": {
+                "productId": {
+                    "type": "integer",
+                    "description": "Id of product in cart"
+                },
+                "quantity": {
+                    "type": "number",
+                    "description": "How many of this product are in cart"
+                }
+            }
+        },
+        "Product": {
+            "type": "object",
+            "required": ["id", "title", "price", "description", "category", "image", "rate"],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "ID of product"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Name of the product"
+                },
+                "price": {
+                    "type": "number",
+                    "description": "Price of the product"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Description of the product"
+                },
+                "category": {
+                    "type": "string",
+                    "description": "Category to which the product belongs"
+                },
+                "image": {
+                    "type": "string",
+                    "description": "URL of the product image"
+                },
+                "rate": {
+                    "type": "object",
+                    "description": "Rating of the product",
+                    "$ref": "#/definitions/Rate"
+                }
+            }
+        },
+        "Rate": {
+            "type": "object",
+            "required": ["rate", "count"],
+            "properties": {
+                "rate": {
+                    "type": "number",
+                    "description": "How well is the product rated"
+                },
+                "count": {
+                    "type": "integer",
+                    "description": "How many users have rated this product"
+                }
+            }
+        }
+    }
+}
