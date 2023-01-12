@@ -1,5 +1,8 @@
 {
   "name": "conrad-eshop",
+  "workspaces": [
+    "mock-server"
+  ],
   "version": "1.0.0",
   "description": "Conrad e-shop for interview",
   "main": "./dist/index.js",
@@ -7,6 +10,10 @@
   "author": "jindra12 <jindra12.underdark@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "mock": "cd ./mock-server; yarn mock",
+    "cypress:open": "concurrently \"yarn mock\" \"yarn cypress open --config-file ./cypress.config.ts\""
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -19,6 +26,7 @@
     "@types/react-dom": "^18.0.10",
     "@types/react-redux": "^7.1.25",
     "@types/redux": "^3.6.0",
+    "concurrently": "^7.6.0",
     "css-loader": "^6.7.3",
     "cypress": "^12.3.0",
     "sass": "^1.57.1",
