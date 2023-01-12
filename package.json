@@ -1,0 +1,24 @@
+{
+  "name": "conrad-eshop",
+  "version": "1.0.0",
+  "description": "Conrad e-shop for interview",
+  "main": "./dist/index.js",
+  "repository": "https://github.com/jindra12/conrad-eshop.git",
+  "author": "jindra12 <jindra12.underdark@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "@types/react-redux": "^7.1.25",
+    "@types/redux": "^3.6.0",
+    "cypress": "^12.3.0",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0"
+  }
+}
