@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import reducers from "./store/reducers";
 import { ProductList } from "./components/ProductList";
+import { Product } from "./components/Product";
 
 const store = configureStore({
   reducer: reducers,
@@ -13,8 +15,20 @@ const store = configureStore({
 });
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ProductList />
-    </Provider>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/products/:productId">
+          <Product />
+        </Route>
+        <Route path="/cart">
+
+        </Route>
+        <Route path="/">
+          <ProductList />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root"),
 );
