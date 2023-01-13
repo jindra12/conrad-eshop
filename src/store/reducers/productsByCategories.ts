@@ -1,39 +1,30 @@
 import { ProductsByCategory } from "../actions";
-import { initialState, State } from "../state";
+import { initialState } from "../state";
 
-export const productsByCategoryReducer = (state = initialState, action: ProductsByCategory): State => {
+export const productsByCategoryReducer = (state = initialState["productsByCategory"], action: ProductsByCategory) => {
     switch (action.type) {
         case "loadProductsByCategory":
             return {
                 ...state,
-                productsByCategory: {
-                    ...state.productsByCategory,
-                    [action.payload.id]: {
-                        isLoading: true,
-                    }
-                },
+                [action.payload.id]: {
+                    isLoading: true,
+                }
             };
         case "setProductsByCategory":
             return {
                 ...state,
-                productsByCategory: {
-                    ...state.productsByCategory,
-                    [action.payload.id]: {
-                        response: action.payload.response,
-                    },
+                [action.payload.id]: {
+                    response: action.payload.response,
                 },
             };
         case "errorProductsByCategory":
             return {
                 ...state,
-                productsByCategory: {
-                    ...state.productsByCategory,
-                    [action.payload.id]: {
-                        error: action.payload.error,
-                    }
-                },
+                [action.payload.id]: {
+                    error: action.payload.error,
+                }
             };
         default:
-            return state
+            return state;
     }
 };

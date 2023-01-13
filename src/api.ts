@@ -295,6 +295,19 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
+     * @description Get single product
+     *
+     * @name GetProduct
+     * @request GET:/products/{productId}
+     */
+    getProduct: (productId: number, params: RequestParams = {}) =>
+      this.request<Product, any>({
+        path: `/products/${productId}`,
+        method: "GET",
+        ...params,
+      }),
+
+    /**
      * @description Get all categories of products
      *
      * @name GetCategories
@@ -324,20 +337,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/products/categories/${category}`,
         method: "GET",
         query: query,
-        ...params,
-      }),
-  };
-  product = {
-    /**
-     * @description Get single product
-     *
-     * @name GetProduct
-     * @request GET:/product/{productId}
-     */
-    getProduct: (productId: number, params: RequestParams = {}) =>
-      this.request<Product, any>({
-        path: `/product/${productId}`,
-        method: "GET",
         ...params,
       }),
   };

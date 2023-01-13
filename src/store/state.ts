@@ -1,4 +1,4 @@
-import { CartItem, Product } from "../api";
+import { Cart, CartItem, Product } from "../api";
 import { Loadable } from "../utils/loadable";
 
 export interface State {
@@ -6,7 +6,8 @@ export interface State {
     productsById: Record<string, Loadable<Product>>;
     categories: Loadable<string[]>;
     productsByCategory: Record<string, Loadable<Product[]>>;
-    carts: Record<string, Record<string, Loadable<CartItem[]>>>;
+    cart: Loadable<CartItem[]>;
+    cartId: Loadable<Cart>;
 }
 
 export const initialState: State = {
@@ -14,5 +15,6 @@ export const initialState: State = {
     productsById: {},
     categories: {},
     productsByCategory: {},
-    carts: {},
+    cart: {},
+    cartId: {},
 };

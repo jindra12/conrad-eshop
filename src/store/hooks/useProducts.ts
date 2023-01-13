@@ -16,7 +16,7 @@ export const useProducts = () => {
     React.useEffect(() => {
         dispatch(async (dispatch: Dispatch<ProductsActions>, getState) => {
             const products = getState().products;
-            if (products.isLoading) {
+            if (products.isLoading || products.response) {
                 return;
             }
             dispatch({

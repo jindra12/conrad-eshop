@@ -46,7 +46,7 @@
                 }
             }
         },
-        "/product/{productId}": {
+        "/products/{productId}": {
             "get": {
                 "operationId": "getProduct",
                 "description": "Get single product",

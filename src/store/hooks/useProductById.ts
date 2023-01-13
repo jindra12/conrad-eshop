@@ -6,34 +6,43 @@ import { createError, createLoaded, Loadable } from "../../utils/loadable";
 import { configuredApi } from "../../config";
 import { Product } from "../../api";
 import { State } from "../state";
-import { ProductsActions } from "../actions";
+import { ProductsByIdActions } from "../actions";
 
-type ProductsDispatch = Thunk.ThunkDispatch<State, any, ProductsActions>; 
+type ProductsByIdDispatch = Thunk.ThunkDispatch<State, any, ProductsByIdActions>; 
 
-export const useProductById = () => {
-    const state = useSelector<State, Loadable<Product[]>>((state) => state.products, shallowEqual);
-    const dispatch: ProductsDispatch = useDispatch();
+export const useProductById = (id: number) => {
+    const state = useSelector<State, Record<string, Loadable<Product>>>((state) => state.productsById, shallowEqual);
+    const dispatch: ProductsByIdDispatch = useDispatch();
     React.useEffect(() => {
-        dispatch(async (dispatch: Dispatch<ProductsActions>, getState) => {
-            const products = getState().products;
-            if (products.isLoading) {
+        dispatch(async (dispatch: Dispatch<ProductsByIdActions>, getState) => {
+            const product = getState().productsById[id];
+            if (product && (product.isLoading || product.response)) {
                 return;
             }
             dispatch({
-                type: "loadProducts",
+                type: "loadProductsById",
+                payload: {
+                    id: id.toString(),
+                },
             });
             try {
                 dispatch({
-                    type: "setProducts",
-                    payload: await createLoaded(await configuredApi.products.getProducts()),
+                    type: "setProductsById",
+                    payload: {
+                        id: id.toString(),
+                        ...(await createLoaded(await configuredApi.products.getProduct(id))),
+                    },
                 })
             } catch (e) {
                 dispatch({
-                    type: "errorProducts",
-                    payload: createError(e),
+                    type: "errorProductsById",
+                    payload: {
+                        id: id.toString(),
+                        ...createError(e),
+                    },
                 })
             }
         });
     }, [dispatch]);
-    return state;
+    return state[id];
 };

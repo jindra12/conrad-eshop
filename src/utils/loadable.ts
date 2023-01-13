@@ -1,9 +1,11 @@
+import { HttpResponse } from "../api";
+
 export type Loadable<T> = { response: T, isLoading?: false, error?: undefined }
     | { isLoading: true, response?: undefined, error?: undefined }
     | { isLoading?: false, response?: undefined, error: object }
     | { response?: undefined, isLoading?: false, error?: undefined };
 
-export const createLoaded = async <T>(apiCall: { json: () => Promise<T> }): Promise<{ response: T }> => ({
+export const createLoaded = async <T>(apiCall: HttpResponse<T, any>): Promise<{ response: T }> => ({
     response: await apiCall.json(),
 });
 

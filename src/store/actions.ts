@@ -1,12 +1,6 @@
-import { Product, CartItem } from "../api";
+import { Product, CartItem, Cart } from "../api";
 
-export type ActionType = "loadProducts" | "setProducts" | "errorProducts" |
-    "loadProductsById" | "setProductsById" | "errorProductsById" |
-    "loadCategories" | "setCategories" | "errorCategories" |
-    "loadProductsByCategory" | "setProductsByCategory" | "errorProductsByCategory" |
-    "loadCarts" | "setCarts" | "errorCarts";
-
-type SimpleActionBuilder<TPayload, TLoad, TSet, TError> = {
+export type SimpleActionFactory<TPayload, TLoad, TSet, TError, TClear> = {
     type: TLoad;
 } | {
     type: TError;
@@ -18,9 +12,11 @@ type SimpleActionBuilder<TPayload, TLoad, TSet, TError> = {
     payload: {
         response: TPayload;
     }
+} | {
+    type: TClear;
 };
 
-type ComplexActionBuilder<TPayload, TLoad, TSet, TError> = {
+type ComplexActionFactory<TPayload, TLoad, TSet, TError, TClear> = {
     type: TLoad;
     payload: {
         id: string;
@@ -37,31 +33,15 @@ type ComplexActionBuilder<TPayload, TLoad, TSet, TError> = {
         response: TPayload;
         id: string;
     };
+} | {
+    type: TClear;
 };
 
-type TwoDimensionalActionBuilder<TPayload, TLoad, TSet, TError> = {
-    type: TLoad;
-    payload: {
-        id: [string, string];
-    };
-} | {
-    type: TError;
-    payload: {
-        error: object;
-        id: [string, string];
-    };
-} | {
-    type: TSet;
-    payload: {
-        response: TPayload;
-        id: [string, string];
-    };
-};
-
-export type ProductsActions = SimpleActionBuilder<Product[], "loadProducts", "setProducts", "errorProducts">;
-export type ProductsByIdActions = ComplexActionBuilder<Product, "loadProductsById", "setProductsById", "errorProductsById">;
-export type CategoryActions = SimpleActionBuilder<string[], "loadCategories", "setCategories","errorCategories">;
-export type ProductsByCategory = ComplexActionBuilder<Product[], "loadProductsByCategory", "setProductsByCategory", "errorProductsByCategory">;
-export type CartsActions = TwoDimensionalActionBuilder<CartItem[], "loadCarts", "setCarts", "errorCarts">;
+export type ProductsActions = SimpleActionFactory<Product[], "loadProducts", "setProducts", "errorProducts", "clearProducts">;
+export type ProductsByIdActions = ComplexActionFactory<Product, "loadProductsById", "setProductsById", "errorProductsById", "clearProductsById">;
+export type CategoryActions = SimpleActionFactory<string[], "loadCategories", "setCategories", "errorCategories", "clearCategories">;
+export type ProductsByCategory = ComplexActionFactory<Product[], "loadProductsByCategory", "setProductsByCategory", "errorProductsByCategory", "clearProductsByCategory">;
+export type CartActions = SimpleActionFactory<CartItem[], "loadCart", "setCart", "errorCart", "clearCart">;
+export type CartIdActions = SimpleActionFactory<Cart, "loadCartId", "setCartId", "errorCartId", "clearCartId">;
 
 

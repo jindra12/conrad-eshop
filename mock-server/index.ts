@@ -115,7 +115,17 @@ app.put("/carts/:cartId", (req, res) => {
 		if (!specificCart) {
 			res.status(404).send("Specified cart not found");
 		} else {
-			specificCart.push(...body.products);
+			body.products.forEach((product) => {
+				const existingProductId = specificCart.findIndex(
+					(existing) => existing.productId === product.productId,
+				);
+				if (existingProductId !== -1) {
+					specificCart[existingProductId].quantity = product.quantity;
+				} else {
+					specificCart.push(product);
+				}
+			});
+			userCarts[cartId] = userCarts[cartId].filter((p) => p.quantity !== 0);
 			res.status(201).json({
 				id: cartId,
 			});
