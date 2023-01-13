@@ -44,5 +44,5 @@ export const useProductById = (id: number) => {
             }
         });
     }, [dispatch]);
-    return state[id];
+    return state[id] || {};
 };

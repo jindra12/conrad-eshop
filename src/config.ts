@@ -7,5 +7,5 @@ declare global {
 }
 
 export const configuredApi = new Api({
-    baseUrl: window.baseUrl || "http://localhost:3000",
+    baseUrl: window.baseUrl || "http://localhost:3000/api",
 });

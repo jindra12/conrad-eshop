@@ -44,5 +44,5 @@ export const useProductsByCategory = (category: string) => {
             }
         });
     }, [dispatch]);
-    return state[category];
+    return state[category] || {};
 };

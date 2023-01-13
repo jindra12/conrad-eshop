@@ -5,8 +5,12 @@ import { Product, CartItem, AddItem } from "../src/api";
 const app = express()
 const port = 3000
 
+const index = express.static(path.join(__dirname, "public"));
 app.use("/dist", express.static(path.join(__dirname, "..", "dist")));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(index);
+app.use("/products", index);
+app.use("/products/:productId", index);
+app.use("/cart", index);
 
 const products: Product[] = [
 	{
@@ -52,10 +56,10 @@ const products: Product[] = [
  */
 const carts: Record<number, Record<number, CartItem[]>> = {};
 
-app.get("/products", (_, res) => {
+app.get("/api/products", (_, res) => {
 	res.status(200).json(products);
 });
-app.get("/products/:productId", (req, res) => {
+app.get("/api/products/:productId", (req, res) => {
 	const id = parseInt(req.params.productId);
 	if (isNaN(id)) {
 		res.status(400).send("Invalid ID in path");
@@ -68,10 +72,10 @@ app.get("/products/:productId", (req, res) => {
 		}
 	}
 });
-app.get("/product/categories", (_, res) => {
+app.get("/api/product/categories", (_, res) => {
 	res.status(200).send(products.map((product) => product.category));
 });
-app.get("/products/categories/:category", (req, res) => {
+app.get("/api/products/categories/:category", (req, res) => {
 	const category = req.params.category;
 	const productsInCategory = products.filter((product) => product.category === category);
 	if (!productsInCategory.length) {
@@ -80,7 +84,7 @@ app.get("/products/categories/:category", (req, res) => {
 		res.status(200).json(productsInCategory);
 	}
 });
-app.get("/carts/user/:userId", (req, res) => {
+app.get("/api/carts/user/:userId", (req, res) => {
 	const userId = parseInt(req.params.userId);
 	if (isNaN(userId)) {
 		res.status(400).send("Request contains invalid user id");
@@ -93,7 +97,7 @@ app.get("/carts/user/:userId", (req, res) => {
 		}
 	}
 });
-app.post("/carts", (req, res) => {
+app.post("/api/carts", (req, res) => {
 	const body: AddItem = req.body;
 	const userId = body.userId;
 	const takenCarts = Object.keys(carts[userId] || {});
@@ -104,7 +108,7 @@ app.post("/carts", (req, res) => {
 		id: nextCartId,
 	});
 });
-app.put("/carts/:cartId", (req, res) => {
+app.put("/api/carts/:cartId", (req, res) => {
 	const cartId = parseInt(req.params.cartId);
 	if (isNaN(cartId)) {
 		res.status(400).send("Invalid cart id in path");

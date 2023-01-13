@@ -8,6 +8,7 @@ import logger from "redux-logger";
 import reducers from "./store/reducers";
 import { ProductList } from "./components/ProductList";
 import { Product } from "./components/Product";
+import { Cart } from "./components/Cart";
 
 const store = configureStore({
   reducer: reducers,
@@ -18,15 +19,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/products/:productId">
-          <Product />
-        </Route>
-        <Route path="/cart">
-
-        </Route>
-        <Route path="/">
-          <ProductList />
-        </Route>
+        <Route path="/products/:productId" element={<Product />} />
+        <Route path="/cart" element={<Cart userId={1} />} />
+        <Route path="/" element={<ProductList />} />
       </Routes>
     </BrowserRouter>
   </Provider>,
