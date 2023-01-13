@@ -3,10 +3,10 @@ export type Loadable<T> = { response: T, isLoading?: false, error?: undefined }
     | { isLoading?: false, response?: undefined, error: object }
     | { response?: undefined, isLoading?: false, error?: undefined };
 
-export const createLoaded = async <T>(apiCall: { json: () => Promise<T> }): Promise<Loadable<T>> => ({
+export const createLoaded = async <T>(apiCall: { json: () => Promise<T> }): Promise<{ response: T }> => ({
     response: await apiCall.json(),
 });
 
-export const createError = <T>(error: unknown): Loadable<T> => ({
+export const createError = <T>(error: unknown): { error: object } => ({
     error: error as object
 });
