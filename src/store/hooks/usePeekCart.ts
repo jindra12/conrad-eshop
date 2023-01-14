@@ -4,5 +4,5 @@ import { State } from "../state";
 
 export const usePeekCart = () => {
     const state = useSelector<State, State["cartId"]>((state) => state.cartId, shallowEqual);
-    return state;
+    return state || {};
 };

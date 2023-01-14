@@ -39,5 +39,5 @@ export const useUpdateCart = (products: AddItem) => {
             }
         });
     }, [dispatch, products]);
-    return state;
+    return state || {};
 };
