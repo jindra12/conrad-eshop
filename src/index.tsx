@@ -10,6 +10,8 @@ import { ProductList } from "./components/ProductList";
 import { Product } from "./components/Product";
 import { Cart } from "./components/Cart";
 
+import "../scss/main.scss";
+
 const store = configureStore({
   reducer: reducers,
   middleware: [thunk, logger],
