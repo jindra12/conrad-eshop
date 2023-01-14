@@ -4,6 +4,7 @@ import { Loadable } from "../utils/loadable";
 export interface LoadableProps<T> {
     loadable: Loadable<T>;
     children: (data: T) => React.ReactNode;
+    default?: React.ReactNode
 }
 
 export const Load = <T extends any>(props: LoadableProps<T>) => {
@@ -16,6 +17,9 @@ export const Load = <T extends any>(props: LoadableProps<T>) => {
     }
     if (loadable.response) {
         return <>{props.children(loadable.response)}</>
+    }
+    if (props.default) {
+        return <>{props.default}</>
     }
     return <div></div>;
 };

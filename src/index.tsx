@@ -7,8 +7,8 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import reducers from "./store/reducers";
 import { ProductList } from "./components/ProductList";
-import { Product } from "./components/Product";
 import { Cart } from "./components/Cart";
+import { ProductContainer } from "./components/ProductContainer";
 
 import "../scss/main.scss";
 
@@ -21,7 +21,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/products/:productId" element={<Product />} />
+        <Route path="/products/:productId" element={<ProductContainer />} />
         <Route path="/cart" element={<Cart userId={1} />} />
         <Route path="/" element={<ProductList />} />
       </Routes>

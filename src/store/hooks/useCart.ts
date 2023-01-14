@@ -13,11 +13,7 @@ export const useCart = (userId: number) => {
     const state = useSelector<State, State["cart"]>((state) => state.cart, shallowEqual);
     const dispatch: CartDispatch = useDispatch();
     React.useEffect(() => {
-        dispatch(async (dispatch: Dispatch<CartActions>, getState) => {
-            const cart = getState().cart;
-            if (cart.isLoading || cart.response) {
-                return;
-            }
+        dispatch(async (dispatch: Dispatch<CartActions>) => {
             dispatch({
                 type: "loadCart",
             });
