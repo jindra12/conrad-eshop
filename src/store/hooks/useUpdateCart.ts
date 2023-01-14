@@ -4,37 +4,36 @@ import * as Thunk from "redux-thunk";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { configuredApi } from "../../config";
 import { State } from "../state";
-import { CartActions, CartIdActions } from "../actions";
+import { CartActions } from "../actions";
 import { AddItem } from "../../api";
-import { createError, createLoaded } from "../../utils/loadable";
+import { createLoaded } from "../../utils/loadable";
 
-type CartIdDispatch = Thunk.ThunkDispatch<State, any, CartActions | CartIdActions>;
+type CartIdDispatch = Thunk.ThunkDispatch<State, any, CartActions>;
 
 export const useUpdateCart = (products: AddItem) => {
-    const state = useSelector<State, State["cart"]>((state) => state.cart, shallowEqual);
+    const state = useSelector<State, State["cart"]>(
+        (state) => state.cart,
+        shallowEqual
+    );
     const dispatch: CartIdDispatch = useDispatch();
     React.useEffect(() => {
-        dispatch(async (dispatch: Dispatch<CartActions | CartIdActions>, getState) => {
+        dispatch(async (dispatch: Dispatch<CartActions>, getState) => {
             if (products.products.length === 0) {
                 return;
             }
             const carts = getState().cart;
             const cartId = carts.response?.[0]?.id;
             if (!cartId) {
+                const newId = await createLoaded(await configuredApi.carts.createCart(products));
                 dispatch({
-                    type: "loadCartId",
+                    type: "setCart",
+                    payload: {
+                        response: [{
+                            ...products,
+                            ...newId.response,
+                        }],
+                    },
                 });
-                try {
-                    dispatch({
-                        type: "setCartId",
-                        payload: await createLoaded(await configuredApi.carts.createCart(products)),
-                    });
-                } catch (e) {
-                    dispatch({
-                        type: "errorCartId",
-                        payload: createError(e),
-                    });
-                }
             } else {
                 await configuredApi.carts.updateCart(cartId, products);
             }

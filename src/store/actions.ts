@@ -42,6 +42,5 @@ export type ProductsByIdActions = ComplexActionFactory<Product, "loadProductsByI
 export type CategoryActions = SimpleActionFactory<string[], "loadCategories", "setCategories", "errorCategories", "clearCategories">;
 export type ProductsByCategory = ComplexActionFactory<Product[], "loadProductsByCategory", "setProductsByCategory", "errorProductsByCategory", "clearProductsByCategory">;
 export type CartActions = SimpleActionFactory<CartResult[], "loadCart", "setCart", "errorCart", "clearCart">;
-export type CartIdActions = SimpleActionFactory<Cart, "loadCartId", "setCartId", "errorCartId", "clearCartId">;
 
 

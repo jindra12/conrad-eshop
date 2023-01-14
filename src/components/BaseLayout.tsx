@@ -21,21 +21,21 @@ export const BaseLayout: React.FunctionComponent<
                         props.cart
                             ? [
                                 {
-                                    title: "Products",
+                                    label: "Products",
                                     key: "Products",
-                                    onClick: () => navigate("/products"),
+                                    onClick: () => navigate("/"),
                                 },
                                 {
-                                    title: "Cart",
+                                    label: "Cart",
                                     key: "Cart",
                                     onClick: () => navigate("/cart"),
                                 },
                             ]
                             : [
                                 {
-                                    title: "Products",
+                                    label: "Products",
                                     key: "Products",
-                                    onClick: () => navigate("/products"),
+                                    onClick: () => navigate("/"),
                                 },
                             ]
                     }
