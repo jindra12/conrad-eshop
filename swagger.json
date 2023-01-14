@@ -127,7 +127,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/CartItem"
+                                "$ref": "#/definitions/CartResult"
                             }
                         }
                     }
@@ -207,6 +207,30 @@
             "type": "object",
             "required": ["userId", "date", "products"],
             "properties": {
+                "userId": {
+                    "type": "integer",
+                    "description": "User ID of the cart"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CartItem"
+                    }
+                }
+            }
+        },
+        "CartResult": {
+            "type": "object",
+            "required": ["id", "userId", "date", "products"],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "ID of the relevant cart"
+                },
                 "userId": {
                     "type": "integer",
                     "description": "User ID of the cart"

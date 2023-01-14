@@ -11,33 +11,22 @@ import {
     Descriptions,
 } from "antd";
 import { useProductById } from "../store/hooks/useProductById";
-import { useUpdateCart } from "../store/hooks/useUpdateCart";
-import { AddItem, CartItem } from "../api";
-import { userId } from "../config";
-import { getSerializedTodayDate } from "../utils/date";
 import { Load } from "./Loadable";
 import { BaseLayout } from "./BaseLayout";
 import { ProductDescription } from "./ProductDescription";
 
 export interface ProductProps {
     productId: number;
-    quantity?: number;
+    quantity: number;
+    onPurchase: (productId: number, quantity: number) => void;
+    hasCart: boolean;
 }
 
 export const Product: React.FunctionComponent<ProductProps> = (props) => {
     const product = useProductById(props.productId);
-    const [inputValue, setInputValue] = React.useState<number | null>(props.quantity || 1);
-    const [toPurchase, setToPurchase] = React.useState<CartItem>();
-    const cartItem = React.useMemo<AddItem>(() => {
-        return {
-            date: getSerializedTodayDate(),
-            products: toPurchase ? [toPurchase] : [],
-            userId: userId,
-        };
-    }, [toPurchase]);
-    const cartId = useUpdateCart(cartItem);
+    const [inputValue, setInputValue] = React.useState<number | null>(props.quantity);
     return (
-        <BaseLayout cart={Boolean(cartId.response)}>
+        <BaseLayout cart={props.hasCart}>
             <Load loadable={product}>
                 {(data) => {
                     return (
@@ -53,10 +42,7 @@ export const Product: React.FunctionComponent<ProductProps> = (props) => {
                                 remember: true,
                             }}
                             onFinish={() => {
-                                setToPurchase({
-                                    productId: data.id,
-                                    quantity: inputValue || 1,
-                                });
+                                props.onPurchase(data.id, inputValue || 1);
                             }}
                             autoComplete="off"
                         >

@@ -1,9 +1,11 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import { Throw } from "throw-expression";
-import { usePeekCart } from "../store/hooks/usePeekCart";
+import { userId } from "../config";
+import { useCart } from "../store/hooks/useCart";
+import { CartUpdater } from "./CartUpdater";
+import { Load } from "./Loadable";
 import { Product } from "./Product";
-import { Quantity } from "./Quantity";
 
 export const ProductContainer: React.FunctionComponent = () => {
     const params = useParams();
@@ -11,15 +13,24 @@ export const ProductContainer: React.FunctionComponent = () => {
         params.productId ??
         Throw("Using Product component without id param in url is not allowed")
     );
-    const cart = usePeekCart();
-    if (!cart.response) {
-        return <Product productId={productId} />
-    }
+    const cart = useCart(userId);
     return (
-        <Quantity productId={productId}>
-            {(quantity) => (
-                <Product productId={productId} quantity={quantity} />
+        <Load loadable={cart}>
+            {(data) => (
+                <CartUpdater cart={data}>
+                    {(cart, onPurchase) => {
+                        const quantity = cart.find((item) => item.productId === productId)?.quantity || 1;
+                        return (
+                            <Product
+                                productId={productId}
+                                quantity={quantity}
+                                onPurchase={onPurchase}
+                                hasCart={cart.length > 0}
+                            />
+                        );
+                    }}
+                </CartUpdater>
             )}
-        </Quantity>
+        </Load>
     );
-}
+};

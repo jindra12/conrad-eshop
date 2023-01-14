@@ -8,18 +8,19 @@ import { CartActions, CartIdActions } from "../actions";
 import { AddItem } from "../../api";
 import { createError, createLoaded } from "../../utils/loadable";
 
-type CartIdDispatch = Thunk.ThunkDispatch<State, any, CartActions>; 
+type CartIdDispatch = Thunk.ThunkDispatch<State, any, CartActions | CartIdActions>;
 
 export const useUpdateCart = (products: AddItem) => {
-    const state = useSelector<State, State["cartId"]>((state) => state.cartId, shallowEqual);
+    const state = useSelector<State, State["cart"]>((state) => state.cart, shallowEqual);
     const dispatch: CartIdDispatch = useDispatch();
     React.useEffect(() => {
         dispatch(async (dispatch: Dispatch<CartActions | CartIdActions>, getState) => {
             if (products.products.length === 0) {
                 return;
             }
-            const cartId = getState().cartId;
-            if (!cartId.response) {
+            const carts = getState().cart;
+            const cartId = carts.response?.[0]?.id;
+            if (!cartId) {
                 dispatch({
                     type: "loadCartId",
                 });
@@ -35,7 +36,7 @@ export const useUpdateCart = (products: AddItem) => {
                     });
                 }
             } else {
-                await configuredApi.carts.updateCart(cartId.response.id, products);
+                await configuredApi.carts.updateCart(cartId, products);
             }
         });
     }, [dispatch, products]);

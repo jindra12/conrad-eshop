@@ -1,4 +1,4 @@
-import { Product, CartItem, Cart } from "../api";
+import { Product, Cart, CartResult } from "../api";
 
 export type SimpleActionFactory<TPayload, TLoad, TSet, TError, TClear> = {
     type: TLoad;
@@ -41,7 +41,7 @@ export type ProductsActions = SimpleActionFactory<Product[], "loadProducts", "se
 export type ProductsByIdActions = ComplexActionFactory<Product, "loadProductsById", "setProductsById", "errorProductsById", "clearProductsById">;
 export type CategoryActions = SimpleActionFactory<string[], "loadCategories", "setCategories", "errorCategories", "clearCategories">;
 export type ProductsByCategory = ComplexActionFactory<Product[], "loadProductsByCategory", "setProductsByCategory", "errorProductsByCategory", "clearProductsByCategory">;
-export type CartActions = SimpleActionFactory<CartItem[], "loadCart", "setCart", "errorCart", "clearCart">;
+export type CartActions = SimpleActionFactory<CartResult[], "loadCart", "setCart", "errorCart", "clearCart">;
 export type CartIdActions = SimpleActionFactory<Cart, "loadCartId", "setCartId", "errorCartId", "clearCartId">;
 
 

@@ -1,9 +1,12 @@
 import express from "express";
 import path from "path";
-import { Product, CartItem, AddItem } from "../src/api";
+import { Product, CartItem, AddItem, CartResult } from "../src/api";
+import bodyParser from "body-parser";
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
+
+const jsonParser = bodyParser.json()
 
 const index = express.static(path.join(__dirname, "public"));
 app.use("/dist", express.static(path.join(__dirname, "..", "dist")));
@@ -89,15 +92,23 @@ app.get("/api/carts/user/:userId", (req, res) => {
 	if (isNaN(userId)) {
 		res.status(400).send("Request contains invalid user id");
 	} else {
-		const cartList = Object.values(carts[userId] || {});
-		if (!cartList.length) {
-			res.status(404).send("Cart not found");
-		} else {
-			res.status(200).json(cartList);
-		}
+		const cartList = Object.entries(carts[userId] || {}).reduce((p: CartResult[], [key, cartItems]) => {
+			const date = new Date();
+			const month = date.getMonth() + 1;
+			const day = date.getDate();
+			const stringify = `${date.getFullYear()}-${month <= 9 ? `0${month}` : month}-${day <= 9 ? `0${day}` : day}`;
+			p.push({
+				userId: userId,
+				id: parseInt(key),
+				products: cartItems,
+				date: stringify,
+			});
+			return p;
+		}, []);
+		res.status(200).json(cartList);
 	}
 });
-app.post("/api/carts", (req, res) => {
+app.post("/api/carts", jsonParser, (req, res) => {
 	const body: AddItem = req.body;
 	const userId = body.userId;
 	const takenCarts = Object.keys(carts[userId] || {});
@@ -108,7 +119,7 @@ app.post("/api/carts", (req, res) => {
 		id: nextCartId,
 	});
 });
-app.put("/api/carts/:cartId", (req, res) => {
+app.put("/api/carts/:cartId", jsonParser, (req, res) => {
 	const cartId = parseInt(req.params.cartId);
 	if (isNaN(cartId)) {
 		res.status(400).send("Invalid cart id in path");

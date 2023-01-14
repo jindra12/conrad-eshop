@@ -22,6 +22,16 @@ export interface AddItem {
   products: CartItem[];
 }
 
+export interface CartResult {
+  /** ID of the relevant cart */
+  id: number;
+  /** User ID of the cart */
+  userId: number;
+  /** @format date */
+  date: string;
+  products: CartItem[];
+}
+
 export interface CartItem {
   /** Id of product in cart */
   productId: number;
@@ -348,7 +358,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/carts/user/{userId}
      */
     getProductsInCart: (userId: number, params: RequestParams = {}) =>
-      this.request<CartItem[], any>({
+      this.request<CartResult[], any>({
         path: `/carts/user/${userId}`,
         method: "GET",
         ...params,

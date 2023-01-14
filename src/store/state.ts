@@ -1,4 +1,4 @@
-import { Cart, CartItem, Product } from "../api";
+import { Cart, CartItem, CartResult, Product } from "../api";
 import { Loadable } from "../utils/loadable";
 
 export interface State {
@@ -6,7 +6,7 @@ export interface State {
     productsById: Record<string, Loadable<Product>>;
     categories: Loadable<string[]>;
     productsByCategory: Record<string, Loadable<Product[]>>;
-    cart: Loadable<CartItem[]>;
+    cart: Loadable<CartResult[]>;
     cartId: Loadable<Cart>;
 }
 

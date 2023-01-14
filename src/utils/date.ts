@@ -1,6 +1,6 @@
 export const getSerializedTodayDate = () => {
-    const today = new Date();
-    return [today.getFullYear(), today.getMonth() + 1, today.getDate()].join(
-        "-"
-    );
+    const date = new Date();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${date.getFullYear()}-${month <= 9 ? `0${month}` : month}-${day <= 9 ? `0${day}` : day}`;
 };

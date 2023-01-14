@@ -18,9 +18,10 @@ export const useCart = (userId: number) => {
                 type: "loadCart",
             });
             try {
+                const loadedCart = await createLoaded(await configuredApi.carts.getProductsInCart(userId));
                 dispatch({
                     type: "setCart",
-                    payload: await createLoaded(await configuredApi.carts.getProductsInCart(userId)),
+                    payload: loadedCart,
                 });
             } catch (e) {
                 dispatch({
