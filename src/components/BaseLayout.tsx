@@ -4,6 +4,7 @@ import { Layout, Menu } from "antd";
 
 export interface BaseLayoutProps {
     cart?: boolean;
+    messageContext?: React.ReactElement;
 }
 
 export const BaseLayout: React.FunctionComponent<
@@ -11,7 +12,7 @@ export const BaseLayout: React.FunctionComponent<
 > = (props) => {
     const navigate = useNavigate();
     return (
-        <Layout>
+        <Layout style={{ background: "none" }}>
             <Layout.Header>
                 <Menu
                     direction="rtl"
@@ -40,6 +41,7 @@ export const BaseLayout: React.FunctionComponent<
                             ]
                     }
                 />
+                {props.messageContext}
             </Layout.Header>
             <Layout.Content>{props.children}</Layout.Content>
         </Layout>

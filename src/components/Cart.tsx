@@ -17,12 +17,16 @@ export const Cart: React.FunctionComponent<CartProps> = (props) => {
             <Load loadable={cart}>
                 {(data) => (
                     <CartUpdater cart={data}>
-                        {(cart, updateCart) => (
+                        {(cart, updateCart, deleteFromCart) => (
                             <List
                                 itemLayout="horizontal"
                                 dataSource={cart}
                                 renderItem={(product) => (
-                                    <CartItem {...product} onChange={updateCart} />
+                                    <CartItem
+                                        {...product}
+                                        onChange={updateCart}
+                                        onRemove={deleteFromCart}
+                                    />
                                 )}
                             />
                         )}

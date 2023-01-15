@@ -9,7 +9,8 @@ export interface CartUpdaterProps {
     cart?: CartResult[];
     children: (
         cart: CartItem[],
-        updateFn: (productId: number, quantity: number) => void
+        updateFn: (productId: number, quantity: number) => void,
+        deleteFn: (productId: number) => void,
     ) => React.ReactNode;
 }
 
@@ -62,5 +63,11 @@ export const CartUpdater: React.FunctionComponent<CartUpdaterProps> = (
         },
         []
     );
-    return <>{props.children(products.products, updateCart)}</>;
+    const deleteFromCart = React.useCallback((productId: number) => {
+        setProducts(prevState => ({
+            ...prevState,
+            products: prevState.products.filter((p) => p.productId !== productId),
+        }));
+    }, []);
+    return <>{props.children(products.products, updateCart, deleteFromCart)}</>;
 };

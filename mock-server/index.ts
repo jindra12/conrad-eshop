@@ -41,7 +41,7 @@ const products: Product[] = [
 		},
 	},
 	{
-		id: 2,
+		id: 3,
 		price: 1500,
 		title: "smart watch",
 		category: "electronics",
@@ -130,17 +130,7 @@ app.put("/api/carts/:cartId", jsonParser, (req, res) => {
 		if (!specificCart) {
 			res.status(404).send("Specified cart not found");
 		} else {
-			body.products.forEach((product) => {
-				const existingProductId = specificCart.findIndex(
-					(existing) => existing.productId === product.productId,
-				);
-				if (existingProductId !== -1) {
-					specificCart[existingProductId].quantity = product.quantity;
-				} else {
-					specificCart.push(product);
-				}
-			});
-			userCarts[cartId] = userCarts[cartId].filter((p) => p.quantity !== 0);
+			userCarts[cartId] = body.products;
 			res.status(201).json({
 				id: cartId,
 			});

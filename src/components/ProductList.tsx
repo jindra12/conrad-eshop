@@ -1,12 +1,11 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-import { List, Avatar } from "antd";
+import { List } from "antd";
 import { useProducts } from "../store/hooks/useProducts";
-import { ProductDescription } from "./ProductDescription";
 import { useCart } from "../store/hooks/useCart";
 import { userId } from "../config";
 import { Load } from "./Loadable";
 import { BaseLayout } from "./BaseLayout";
+import { SmallProduct } from "./SmallProduct";
 
 export const ProductList: React.FunctionComponent = () => {
     const products = useProducts();
@@ -22,18 +21,7 @@ export const ProductList: React.FunctionComponent = () => {
                                 dataSource={data}
                                 renderItem={(product) => (
                                     <List.Item>
-                                        <List.Item.Meta
-                                            avatar={<Avatar src={product.image} />}
-                                            title={
-                                                <Link
-                                                    id={`id_${product.id.toString()}`}
-                                                    to={`/products/${product.id}`}
-                                                >
-                                                    {product.title}
-                                                </Link>
-                                            }
-                                            description={<ProductDescription product={product} />}
-                                        />
+                                        <SmallProduct product={product} />
                                     </List.Item>
                                 )}
                             />
@@ -42,6 +30,5 @@ export const ProductList: React.FunctionComponent = () => {
                 </BaseLayout>
             )}
         </Load>
-
     );
 };
