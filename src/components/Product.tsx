@@ -73,6 +73,7 @@ export const Product: React.FunctionComponent<ProductProps> = (props) => {
                                         type: "success",
                                         content: `Product ${data.title} added to cart, ${inputValue || 1
                                             } pieces!`,
+                                        duration: 2,
                                     });
                                 }}
                                 autoComplete="off"
