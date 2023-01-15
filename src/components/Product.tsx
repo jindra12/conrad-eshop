@@ -114,6 +114,7 @@ export const Product: React.FunctionComponent<ProductProps> = (props) => {
                                                 <InputNumber
                                                     min={1}
                                                     max={20}
+                                                    id={`count_${data.id}`}
                                                     value={inputValue}
                                                     onChange={setInputValue}
                                                     required
@@ -139,7 +140,7 @@ export const Product: React.FunctionComponent<ProductProps> = (props) => {
                                                 <Rate disabled defaultValue={data.rate.rate} />
                                             </Descriptions.Item>
                                             <Descriptions.Item>
-                                                <Button type="primary" htmlType="submit">
+                                                <Button type="primary" htmlType="submit" id={`buy_${data.id}`}>
                                                     Add to cart
                                                 </Button>
                                             </Descriptions.Item>

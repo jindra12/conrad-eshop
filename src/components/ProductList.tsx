@@ -34,6 +34,7 @@ export const ProductList: React.FunctionComponent = () => {
                                                 <Button
                                                     type="primary"
                                                     htmlType="button"
+                                                    id={`buy_${product.id}`}
                                                     onClick={() => {
                                                         const currentQuantity = cart.find(
                                                             (item) => item.productId === product.id

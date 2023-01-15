@@ -30,7 +30,7 @@ export const SmallProduct: React.FunctionComponent<SmallProductProps> = (
                 />
             }
             title={
-                <Link id={`id_${product.id.toString()}`} to={`/products/${product.id}`}>
+                <Link id={`link_${product.id.toString()}`} to={`/products/${product.id}`}>
                     {product.title}
                 </Link>
             }

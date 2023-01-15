@@ -31,10 +31,12 @@ export const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
                             required
                             min={1}
                             max={20}
+                            id={`count_${data.id}`}
                         />
                         <Button
                             type="dashed"
                             htmlType="button"
+                            id={`remove_${data.id}`}
                             onClick={() => props.onRemove(props.productId)}
                         >
                             Remove
