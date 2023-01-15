@@ -12,7 +12,7 @@ export const BaseLayout: React.FunctionComponent<
 > = (props) => {
     const navigate = useNavigate();
     return (
-        <Layout style={{ background: "none" }}>
+        <Layout>
             <Layout.Header>
                 <Menu
                     direction="rtl"

@@ -19,13 +19,15 @@ const store = configureStore({
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/products/:productId" element={<ProductContainer />} />
-        <Route path="/cart" element={<Cart userId={1} />} />
-        <Route path="/" element={<ProductList />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="Store">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/products/:productId" element={<ProductContainer />} />
+          <Route path="/cart" element={<Cart userId={1} />} />
+          <Route path="/" element={<ProductList />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   </Provider>,
   document.getElementById("root"),
 );

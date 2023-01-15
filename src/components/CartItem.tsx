@@ -16,34 +16,32 @@ export const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
     const product = useProductById(props.productId);
     const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
     return (
-        <Load loadable={product}>
-            {(data) => (
-                <List.Item>
-                    <SmallProduct product={data} hide={isSmallScreen ? "all" : "description"} />
-                    <InputNumber
-                        defaultValue={props.quantity}
-                        onChange={(value) => {
-                            if (value) {
-                                props.onChange(props.productId, value);
-                            }
-                        }}
-                        required
-                        min={1}
-                        max={20}
-                        style={{
-                            marginTop: 10,
-                        }}
-                    />
-                    <Button
-                        type="dashed"
-                        htmlType="button"
-                        onClick={() => props.onRemove(props.productId)}
-                        style={{ marginLeft: 10, marginTop: 10 }}
-                    >
-                        Remove
-                    </Button>
-                </List.Item>
-            )}
-        </Load>
+        <div className="Store__cart-item">
+            <Load loadable={product}>
+                {(data) => (
+                    <List.Item>
+                        <SmallProduct product={data} hide={isSmallScreen ? "all" : "description"} />
+                        <InputNumber
+                            defaultValue={props.quantity}
+                            onChange={(value) => {
+                                if (value) {
+                                    props.onChange(props.productId, value);
+                                }
+                            }}
+                            required
+                            min={1}
+                            max={20}
+                        />
+                        <Button
+                            type="dashed"
+                            htmlType="button"
+                            onClick={() => props.onRemove(props.productId)}
+                        >
+                            Remove
+                        </Button>
+                    </List.Item>
+                )}
+            </Load>
+        </div>
     );
 };

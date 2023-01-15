@@ -25,10 +25,8 @@ export const SmallProduct: React.FunctionComponent<SmallProductProps> = (
             avatar={
                 <Avatar
                     src={product.image}
-                    style={{
-                        marginTop: 15,
-                    }}
                     onClick={() => navigation(`/products/${product.id}`)}
+                    className="Store__small-avatar"
                 />
             }
             title={

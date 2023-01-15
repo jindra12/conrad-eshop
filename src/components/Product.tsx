@@ -52,114 +52,104 @@ export const Product: React.FunctionComponent<ProductProps> = (props) => {
     const [messageApi, contextHolder] = message.useMessage();
     return (
         <BaseLayout cart={props.hasCart} messageContext={contextHolder}>
-            <Load loadable={product}>
-                {(data) => {
-                    return (
-                        <Form
-                            name="basic"
-                            labelCol={{
-                                span: 8,
-                            }}
-                            wrapperCol={{
-                                span: 16,
-                            }}
-                            initialValues={{
-                                remember: true,
-                            }}
-                            onFinish={() => {
-                                props.onPurchase(data.id, inputValue || 1);
-                                messageApi.open({
-                                    type: 'success',
-                                    content: `Product ${data.title} added to cart, ${inputValue || 1} pieces!`,
-                                })
-                            }}
-                            autoComplete="off"
-                        >
-                            <Descriptions column={responsiveBreaks}>
-                                <Descriptions.Item>
-                                    <Card
-                                        hoverable
-                                        style={{
-                                            maxWidth: 650,
-                                            width: "100%",
-                                            minWidth: 400,
-                                        }}
-                                        cover={
-                                            <img
-                                                alt="Descriptive image of product"
-                                                src={data.image}
-                                            />
-                                        }
-                                    >
-                                        <Card.Meta
-                                            title={data.title}
-                                            description={
-                                                <ProductDescription product={data} size={1} />
+            <div className="Store__product">
+                <Load loadable={product}>
+                    {(data) => {
+                        return (
+                            <Form
+                                name="basic"
+                                labelCol={{
+                                    span: 8,
+                                }}
+                                wrapperCol={{
+                                    span: 16,
+                                }}
+                                initialValues={{
+                                    remember: true,
+                                }}
+                                onFinish={() => {
+                                    props.onPurchase(data.id, inputValue || 1);
+                                    messageApi.open({
+                                        type: "success",
+                                        content: `Product ${data.title} added to cart, ${inputValue || 1
+                                            } pieces!`,
+                                    });
+                                }}
+                                autoComplete="off"
+                            >
+                                <Descriptions column={responsiveBreaks}>
+                                    <Descriptions.Item>
+                                        <Card
+                                            hoverable
+                                            cover={
+                                                <img
+                                                    alt="Descriptive image of product"
+                                                    src={data.image}
+                                                />
                                             }
-                                        />
-                                    </Card>
-                                </Descriptions.Item>
-                                <Descriptions.Item style={{ minWidth: 400 }}>
-                                    <Descriptions
-                                        column={{
-                                            xxl: 1,
-                                            xl: 1,
-                                            lg: 1,
-                                            md: 1,
-                                            sm: 1,
-                                            xs: 1,
-                                        }}
-                                    >
-                                        <Descriptions.Item
-                                            label="Select amount"
-                                            labelStyle={{
-                                                alignSelf: "center",
+                                        >
+                                            <Card.Meta
+                                                title={data.title}
+                                                description={
+                                                    <ProductDescription product={data} size={1} />
+                                                }
+                                            />
+                                        </Card>
+                                    </Descriptions.Item>
+                                    <Descriptions.Item className="Store__description">
+                                        <Descriptions
+                                            column={{
+                                                xxl: 1,
+                                                xl: 1,
+                                                lg: 1,
+                                                md: 1,
+                                                sm: 1,
+                                                xs: 1,
                                             }}
                                         >
-                                            <InputNumber
-                                                min={1}
-                                                max={20}
-                                                style={{
-                                                    margin: "0 16px",
-                                                }}
-                                                value={inputValue}
-                                                onChange={setInputValue}
-                                                required
-                                            />
-                                        </Descriptions.Item>
-                                        <Descriptions.Item>
-                                            <Slider
-                                                min={1}
-                                                max={20}
-                                                onChange={setInputValue}
-                                                value={inputValue || 0}
-                                                style={{ width: 200 }}
-                                            />
-                                        </Descriptions.Item>
-                                        <Descriptions.Item label="Total pay for product">
-                                            {data.price * (inputValue || 0)}
-                                        </Descriptions.Item>
-                                        <Descriptions.Item label="Number of users who rated this product">
-                                            {data.rate.count}
-                                        </Descriptions.Item>
-                                        <Descriptions.Item
-                                            label="User rating"
-                                            style={{ alignContent: "center" }}
-                                        >
-                                            <Rate disabled defaultValue={data.rate.rate} />
-                                        </Descriptions.Item>
-                                        <Descriptions.Item>
-                                            <Button type="primary" htmlType="submit">
-                                                Add to cart
-                                            </Button>
-                                        </Descriptions.Item>
-                                    </Descriptions>
-                                </Descriptions.Item>
-                            </Descriptions>
-                        </Form>
-                    );
-                }}
-            </Load>
+                                            <Descriptions.Item
+                                                label="Select amount"
+                                            >
+                                                <InputNumber
+                                                    min={1}
+                                                    max={20}
+                                                    value={inputValue}
+                                                    onChange={setInputValue}
+                                                    required
+                                                />
+                                            </Descriptions.Item>
+                                            <Descriptions.Item>
+                                                <Slider
+                                                    min={1}
+                                                    max={20}
+                                                    onChange={setInputValue}
+                                                    value={inputValue || 0}
+                                                />
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label="Total pay for product">
+                                                {data.price * (inputValue || 0)}
+                                            </Descriptions.Item>
+                                            <Descriptions.Item label="Number of users who rated this product">
+                                                {data.rate.count}
+                                            </Descriptions.Item>
+                                            <Descriptions.Item
+                                                label="User rating"
+                                            >
+                                                <Rate disabled defaultValue={data.rate.rate} />
+                                            </Descriptions.Item>
+                                            <Descriptions.Item>
+                                                <Button type="primary" htmlType="submit">
+                                                    Add to cart
+                                                </Button>
+                                            </Descriptions.Item>
+                                        </Descriptions>
+                                    </Descriptions.Item>
+                                </Descriptions>
+                            </Form>
+                        );
+                    }}
+                </Load>
+            </div>
         </BaseLayout>
     );
 };
