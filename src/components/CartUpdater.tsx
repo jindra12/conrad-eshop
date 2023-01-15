@@ -28,36 +28,17 @@ export const CartUpdater: React.FunctionComponent<CartUpdaterProps> = (
     const updateCart = React.useCallback(
         (productId: number, quantity: number) => {
             setProducts((prevState) => {
-                const hasProduct = prevState.products.some(
-                    (product) => product.productId === productId
-                );
-                if (!hasProduct) {
-                    return {
-                        ...prevState,
-                        products: prevState.products.concat([
-                            { productId: productId, quantity: quantity },
-                        ]),
-                    };
-                }
-                const modified = prevState.products.reduce(
-                    (modified: CartItem[], item) => {
-                        if (item.productId === productId) {
-                            if (quantity !== 0) {
-                                modified.push({
-                                    ...item,
-                                    quantity: quantity,
-                                });
-                            }
-                        } else {
-                            modified.push(item);
-                        }
-                        return modified;
-                    },
-                    []
-                );
+                const currentProducts = prevState.products.reduce((accumulator: Record<number, CartItem>, item) => {
+                    accumulator[item.productId] = item;
+                    return accumulator;
+                }, {});
+                currentProducts[productId] = {
+                    productId: productId,
+                    quantity: quantity,
+                };
                 return {
                     ...prevState,
-                    products: modified,
+                    products: Object.values(currentProducts),
                 };
             });
         },
