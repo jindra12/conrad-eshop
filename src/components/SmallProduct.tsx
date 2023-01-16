@@ -6,10 +6,19 @@ import { Product } from "../api";
 import { ProductDescription } from "./ProductDescription";
 
 export interface SmallProductProps {
+    /**
+     * Product to be displayed
+     */
     product: Product;
+    /**
+     * Configures amount of information displayed about a product
+     */
     hide?: "description" | "all";
 }
 
+/**
+ * Small product display, used in lists
+ */
 export const SmallProduct: React.FunctionComponent<SmallProductProps> = (
     props
 ) => {

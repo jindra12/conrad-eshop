@@ -1,6 +1,9 @@
 import { CartResult, Product } from "../api";
 import { Loadable } from "../utils/loadable";
 
+/**
+ * Global redux state type
+ */
 export interface State {
     products: Loadable<Product[]>;
     productsById: Record<string, Loadable<Product>>;

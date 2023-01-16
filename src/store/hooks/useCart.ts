@@ -9,6 +9,10 @@ import { CartActions } from "../actions";
 
 type CartDispatch = Thunk.ThunkDispatch<State, any, CartActions>; 
 
+/**
+ * API react-redux hook
+ * @returns an API results from GET API for user cart
+ */
 export const useCart = (userId: number) => {
     const state = useSelector<State, State["cart"]>((state) => state.cart, shallowEqual);
     const dispatch: CartDispatch = useDispatch();

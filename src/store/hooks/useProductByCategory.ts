@@ -10,6 +10,10 @@ import { ProductsByCategory } from "../actions";
 
 type ProductsByCategoryDispatch = Thunk.ThunkDispatch<State, any, ProductsByCategory>; 
 
+/**
+ * API react-redux hook
+ * @returns an API results from GET API for all products within a single category
+ */
 export const useProductsByCategory = (category: string) => {
     const state = useSelector<State, Record<string, Loadable<Product[]>>>((state) => state.productsByCategory, shallowEqual);
     const dispatch: ProductsByCategoryDispatch = useDispatch();

@@ -1,6 +1,9 @@
 import { SimpleActionFactory } from "../actions";
 import { initialState, State } from "../state";
 
+/**
+ * Simple reducer factory for APIs with a string attribute of Store + 4 actions (load, set, error and clear)
+ */
 export const simpleReducerFactory = <
     TPayload,
     TLoad extends string = string,

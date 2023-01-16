@@ -1,6 +1,9 @@
 import { ProductsByIdActions } from "../actions";
 import { initialState } from "../state";
 
+/**
+ * Single product by ID reducer
+ */
 export const productsByIdReducer = (state = initialState["productsById"], action: ProductsByIdActions) => {
     switch (action.type) {
         case "loadProductsById":

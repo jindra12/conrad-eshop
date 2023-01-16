@@ -10,6 +10,10 @@ import { ProductsActions } from "../actions";
 
 type ProductsDispatch = Thunk.ThunkDispatch<State, any, ProductsActions>; 
 
+/**
+ * API react-redux hook
+ * @returns an API results from GET API for all products
+ */
 export const useProducts = () => {
     const state = useSelector<State, Loadable<Product[]>>((state) => state.products, shallowEqual);
     const dispatch: ProductsDispatch = useDispatch();

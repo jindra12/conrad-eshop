@@ -7,6 +7,9 @@ import { CartUpdater } from "./CartUpdater";
 import { Load } from "./Loadable";
 import { Product } from "./Product";
 
+/**
+ * Container component for a page with a single product
+ */
 export const ProductContainer: React.FunctionComponent = () => {
     const params = useParams();
     const productId = parseInt(

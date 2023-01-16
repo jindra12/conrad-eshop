@@ -6,7 +6,16 @@ import { getCartItems } from "../utils/cartResult";
 import { getSerializedTodayDate } from "../utils/date";
 
 export interface CartUpdaterProps {
+    /**
+     * Products already in cart
+     */
     cart?: CartResult[];
+    /**
+     * children as function, adds cart update functionality
+     * @param cart Cart items to be displayed
+     * @param updateFn function that changes the quantity of the products in cart
+     * @param deleteFn function that deletes a product from a cart
+     */
     children: (
         cart: CartItem[],
         updateFn: (productId: number, quantity: number) => void,
@@ -14,6 +23,9 @@ export interface CartUpdaterProps {
     ) => React.ReactNode;
 }
 
+/**
+ * Children as function component, adds cart update functionality for other components
+ */
 export const CartUpdater: React.FunctionComponent<CartUpdaterProps> = (
     props
 ) => {

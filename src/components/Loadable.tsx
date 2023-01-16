@@ -2,11 +2,23 @@ import * as React from "react";
 import { Loadable } from "../utils/loadable";
 
 export interface LoadableProps<T> {
+    /**
+     * Object which denotes the state of API request
+     */
     loadable: Loadable<T>;
+    /**
+     * Function as children when data loads
+     */
     children: (data: T) => React.ReactNode;
+    /**
+     * Configurable default component display
+     */
     default?: React.ReactNode
 }
 
+/**
+ * Manages display of loading/data results/api errors from back end
+ */
 export const Load = <T extends any>(props: LoadableProps<T>) => {
     const { loadable } = props;
     if (loadable.isLoading) {

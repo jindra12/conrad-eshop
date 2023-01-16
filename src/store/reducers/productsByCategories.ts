@@ -1,6 +1,9 @@
 import { ProductsByCategory } from "../actions";
 import { initialState } from "../state";
 
+/**
+ * Products by single category reducer
+ */
 export const productsByCategoryReducer = (state = initialState["productsByCategory"], action: ProductsByCategory) => {
     switch (action.type) {
         case "loadProductsByCategory":

@@ -3,11 +3,23 @@ import { Descriptions } from "antd";
 import { Product } from "../api";
 
 export interface ProductDescriptionProps {
+    /**
+     * Product to be described
+     */
     product: Product;
+    /**
+     * Screen resolution breakpoints. For more, see Description.Item docs on antd
+     */
     size?: number;
+    /**
+     * Hide long product description
+     */
     hideDescription?: boolean
 }
 
+/**
+ * Configurable description of a single product
+ */
 export const ProductDescription: React.FunctionComponent<
     ProductDescriptionProps
 > = (props) => {

@@ -16,12 +16,27 @@ import { BaseLayout } from "./BaseLayout";
 import { ProductDescription } from "./ProductDescription";
 
 export interface ProductProps {
+    /**
+     * Id of the product displayed
+     */
     productId: number;
+    /**
+     * Quantity of the product to display
+     */
     quantity: number;
+    /**
+     * Callback with product ID and quantity of product bought
+     */
     onPurchase: (productId: number, quantity: number) => void;
+    /**
+     * Should a cart link be displayed?
+     */
     hasCart: boolean;
 }
 
+/**
+ * Displays a page with a single product
+ */
 export const Product: React.FunctionComponent<ProductProps> = (props) => {
     const product = useProductById(props.productId);
     const [inputValue, setInputValue] = React.useState<number | null>(

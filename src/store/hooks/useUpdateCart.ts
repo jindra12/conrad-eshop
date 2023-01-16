@@ -10,6 +10,10 @@ import { CartActions } from "../actions";
 
 type CartIdDispatch = Thunk.ThunkDispatch<State, any, CartActions>;
 
+/**
+ * API react-redux hook
+ * @returns an API results for updating/creating (PUT/POST) an users cart
+ */
 export const useUpdateCart = (products: AddItem) => {
     const state = useSelector<State, State["cart"]>(
         (state) => state.cart,

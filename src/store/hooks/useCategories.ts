@@ -9,6 +9,10 @@ import { CategoryActions } from "../actions";
 
 type CategoriesDispatch = Thunk.ThunkDispatch<State, any, CategoryActions>; 
 
+/**
+ * API react-redux hook
+ * @returns an API results from GET API for product categories
+ */
 export const useCategories = () => {
     const state = useSelector<State, Loadable<string[]>>((state) => state.categories, shallowEqual);
     const dispatch: CategoriesDispatch = useDispatch();

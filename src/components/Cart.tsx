@@ -7,9 +7,15 @@ import { CartUpdater } from "./CartUpdater";
 import { CartItem } from "./CartItem";
 
 export interface CartProps {
+    /**
+     * ID of the currently logged-in user
+     */
     userId: number;
 }
 
+/**
+ * Component for cart page with products to purchase
+ */
 export const Cart: React.FunctionComponent<CartProps> = (props) => {
     const cart = useCart(props.userId);
     return (

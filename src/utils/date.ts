@@ -1,3 +1,6 @@
+/**
+ * Serializes todays date
+ */
 export const getSerializedTodayDate = () => {
     const date = new Date();
     const month = date.getMonth() + 1;

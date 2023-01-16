@@ -9,6 +9,9 @@ import { BaseLayout } from "./BaseLayout";
 import { SmallProduct } from "./SmallProduct";
 import { CartUpdater } from "./CartUpdater";
 
+/**
+ * Main page list of products
+ */
 export const ProductList: React.FunctionComponent = () => {
     const products = useProducts();
     const cart = useCart(userId);

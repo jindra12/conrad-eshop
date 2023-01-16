@@ -6,12 +6,30 @@ import { Load } from "./Loadable";
 import { SmallProduct } from "./SmallProduct";
 
 export interface CartItemProps {
+    /**
+     * ID of a single product in a cart
+     */
     productId: number;
+    /**
+     * Quantity of a single product in a cart
+     */
     quantity: number;
+    /**
+     * On change quantity callback
+     * @param productId Id of the product, whose quantity we are changing
+     * @param quantity quantity to change it to
+     */
     onChange: (productId: number, quantity: number) => void;
+    /**
+     * On remove product callback
+     * @param productId Id of the product we wish to remove from cart
+     */
     onRemove: (productId: number) => void;
 }
 
+/**
+ * A single item in a cart. Contains product information and controls for quantity of the product, and a button for removal.
+ */
 export const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
     const product = useProductById(props.productId);
     const isSmallScreen = useMediaQuery({ query: "(max-width: 600px)" });
