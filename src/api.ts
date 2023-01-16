@@ -53,7 +53,7 @@ export interface Product {
   /** URL of the product image */
   image: string;
   /** Rating of the product */
-  rate: Rate;
+  rating: Rate;
 }
 
 export interface Rate {

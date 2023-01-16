@@ -23,7 +23,7 @@ const products: Product[] = [
 		category: "clothes",
 		description: "Male t-shirt, M size",
 		image: "https://img.freepik.com/free-photo/serious-athletic-young-african-american-model-with-hands-pockets-his-tight-blue-jeans-wearing-white-t-shirt_346278-999.jpg?w=2000",
-		rate: {
+		rating: {
 			count: 5,
 			rate: 10,
 		},
@@ -35,7 +35,7 @@ const products: Product[] = [
 		category: "clothes",
 		description: "Male t-shirt, L size",
 		image: "https://img.freepik.com/free-photo/serious-athletic-young-african-american-model-with-hands-pockets-his-tight-blue-jeans-wearing-white-t-shirt_346278-999.jpg?w=2000",
-		rate: {
+		rating: {
 			count: 7,
 			rate: 7,
 		},
@@ -47,7 +47,7 @@ const products: Product[] = [
 		category: "electronics",
 		description: "A small smart watch",
 		image: "",
-		rate: {
+		rating: {
 			count: 2500,
 			rate: 9,
 		},

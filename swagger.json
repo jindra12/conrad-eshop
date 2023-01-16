@@ -263,7 +263,7 @@
         },
         "Product": {
             "type": "object",
-            "required": ["id", "title", "price", "description", "category", "image", "rate"],
+            "required": ["id", "title", "price", "description", "category", "image", "rating"],
             "properties": {
                 "id": {
                     "type": "integer",
@@ -289,7 +289,7 @@
                     "type": "string",
                     "description": "URL of the product image"
                 },
-                "rate": {
+                "rating": {
                     "type": "object",
                     "description": "Rating of the product",
                     "$ref": "#/definitions/Rate"

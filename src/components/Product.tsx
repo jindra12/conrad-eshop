@@ -132,12 +132,12 @@ export const Product: React.FunctionComponent<ProductProps> = (props) => {
                                                 {data.price * (inputValue || 0)}
                                             </Descriptions.Item>
                                             <Descriptions.Item label="Number of users who rated this product">
-                                                {data.rate.count}
+                                                {data.rating.count}
                                             </Descriptions.Item>
                                             <Descriptions.Item
                                                 label="User rating"
                                             >
-                                                <Rate disabled defaultValue={data.rate.rate} />
+                                                <Rate disabled defaultValue={data.rating.rate} />
                                             </Descriptions.Item>
                                             <Descriptions.Item>
                                                 <Button type="primary" htmlType="submit" id={`buy_${data.id}`}>
